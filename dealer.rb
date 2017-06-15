@@ -12,11 +12,18 @@ class Dealer
   def draw_card(deck)
     card = deck.take_card
     @hand << card
-    @points += card.power 
+    @points += card.points
   end
 
   def take_money(amount)
     raise "not enough money!" if @bank < amount
     @bank -= amount
+  end
+
+  def show_cards
+    @hand.each do |card|
+      puts "card: #{card.value}#{card.suit}"
+    end
+    puts "points: #{@points}"
   end
 end

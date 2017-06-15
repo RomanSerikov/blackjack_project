@@ -3,7 +3,7 @@ class Deck
     @cards = []
     @values = %w(2 3 4 5 6 7 8 9 10 J Q K A)
     @suits  = %w(+ <3 ^ <>)
-    @points = {"A" => "ACE", "J" => 10, "Q" => 10, "K" => 10}
+    @points = {"A" => 10, "J" => 10, "Q" => 10, "K" => 10}
     make_deck
     shuffle
   end
@@ -13,7 +13,7 @@ class Deck
   end
 
   private
-  
+
   def make_deck
     @values.each do |value|
       @suits.each do |suit|
