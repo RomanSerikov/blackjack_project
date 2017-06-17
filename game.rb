@@ -71,25 +71,37 @@ class Game
   def choose_winner
     show_both_hands
 
-    if @user.points > 21
-      puts "You lost!"
-      @dealer.give_money(@bank)
+    if @user.points > 21 && @dealer.points > 21
+      user_draw
+    elsif @user.points > 21
+      user_lost
     elsif @dealer.points > 21
-      puts "You win!"
-      @user.give_money(@bank)
+      user_win
     elsif @user.points > @dealer.points
-      puts "You win!"
-      @user.give_money(@bank)
+      user_win
     elsif @user.points == @dealer.points
-      puts "It's draw!"
-      @user.give_money(@bank / 2)
-      @dealer.give_money(@bank / 2)
+      user_draw
     else
-      puts "You lost!"
-      @dealer.give_money(@bank)
+      user_lost
     end
 
     @bank = 0
+  end
+
+  def user_win
+    puts "You win!"
+    @user.give_money(@bank)
+  end
+
+  def user_lost
+    puts "You lost!"
+    @dealer.give_money(@bank)
+  end
+
+  def user_draw
+    puts "It's draw!"
+    @user.give_money(@bank / 2)
+    @dealer.give_money(@bank / 2)
   end
 
   def check_three_cards!
