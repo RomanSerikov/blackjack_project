@@ -12,7 +12,6 @@ class Game
 
   def start
     greetings
-
     new_round!
 
     loop do
@@ -44,13 +43,14 @@ class Game
     @user.refresh!
     @dealer.refresh!
 
-    puts "User:"
+    puts "===================", "LET THE GAME BEGIN!", "Giving you 2 cards:"
     give_two_cards(@user)
     @user.show_cards
 
-    puts "Dealer:"
+    puts "Giving dealer 2 cards:"
     give_two_cards(@dealer)
-    @dealer.show_cards
+    puts "**"
+    # @dealer.show_cards
 
     make_bets(10)
 
@@ -75,8 +75,11 @@ class Game
     if @user.points > 21
       puts "You lost!"
       # Перевод денег из общего банка Дилеру
+    elsif @dealer.points > 21
+      puts "You win!"
+      # Перевод денег из общего банка Пользователю
     elsif @user.points > @dealer.points
-      puts "User with #{@user.points} points WIN!"
+      puts "You win!"
       # Перевод денег из общего банка Пользователю
     elsif @user.points == @dealer.points
       puts "It's draw!"
@@ -97,9 +100,15 @@ class Game
   end
 
   def take_card(player)
+    puts "Drawing a card..."
     player.draw_card(@deck)
-    puts "#{player.class}, now your hand:"
-    @user.show_cards
+    sleep(1)
+
+    if player.is_a?(User)
+      puts "#{player.class}, now your hand:"
+      @user.show_cards
+    end
+
     skip_turn
   end
 
@@ -115,16 +124,10 @@ class Game
   end
 
   def skip_turn
-    puts "Zzzz...."
     change_player
     sleep(1)
     puts "Now its #{@current_player.class} turn."
   end
-
-  # def open_hand
-  #   @finish_round = true
-  #   show_both_hands
-  # end
 
   def show_both_hands
     puts "User:"

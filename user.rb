@@ -8,9 +8,6 @@ class User < Player
   end
 
   def choose_action
-    puts "#{self.class} hand:"
-    show_cards
-
     action = display_actions
   end
 end
