@@ -9,10 +9,15 @@ class Player
     @points = 0
   end
 
+  def refresh!
+    @hand   = []
+    @points = 0
+  end
+
   def draw_card(deck)
     card = deck.take_card
     @hand << card
-    @points += card.points
+    add_points(card)
   end
 
   def take_money(amount)
@@ -25,5 +30,19 @@ class Player
       puts "card: #{card.value}#{card.suit}"
     end
     puts "points: #{@points}"
+  end
+
+  private
+
+  def add_points(card)
+    if card.value == "A" && @hand.size != 1
+      if (2..10).include?(points)
+        @points += 11
+      elsif (11..21).include?(points)
+        @points += 1
+      end
+    else
+      @points += card.points
+    end
   end
 end
