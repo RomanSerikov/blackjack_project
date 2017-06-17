@@ -25,6 +25,10 @@ class Player
     @bank -= amount
   end
 
+  def give_money(amount)
+    @bank += amount
+  end
+
   def show_cards
     @hand.each do |card|
       puts "card: #{card.value}#{card.suit}"

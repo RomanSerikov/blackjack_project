@@ -50,7 +50,6 @@ class Game
     puts "Giving dealer 2 cards:"
     give_two_cards(@dealer)
     puts "**"
-    # @dealer.show_cards
 
     make_bets(10)
 
@@ -74,20 +73,23 @@ class Game
 
     if @user.points > 21
       puts "You lost!"
-      # Перевод денег из общего банка Дилеру
+      @dealer.give_money(@bank)
     elsif @dealer.points > 21
       puts "You win!"
-      # Перевод денег из общего банка Пользователю
+      @user.give_money(@bank)
     elsif @user.points > @dealer.points
       puts "You win!"
-      # Перевод денег из общего банка Пользователю
+      @user.give_money(@bank)
     elsif @user.points == @dealer.points
       puts "It's draw!"
-      # Вернуть деньги Пользователю и Дилеру
+      @user.give_money(@bank / 2)
+      @dealer.give_money(@bank / 2)
     else
       puts "You lost!"
-      # Перевод денег из общего банка Дилеру
+      @dealer.give_money(@bank)
     end
+
+    @bank = 0
   end
 
   def check_three_cards!
