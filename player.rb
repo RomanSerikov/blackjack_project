@@ -3,7 +3,7 @@ class Player
   attr_reader :points, :hand
 
   def initialize
-    @name   = ""
+    @name   = ''
     @bank   = 100
     @hand   = []
     @points = 0
@@ -21,7 +21,7 @@ class Player
   end
 
   def take_money(amount)
-    raise "not enough money!" if @bank < amount
+    raise 'not enough money!' if @bank < amount
     @bank -= amount
   end
 
@@ -39,10 +39,10 @@ class Player
   private
 
   def add_points(card)
-    if card.value == "A" && @hand.size != 1
-      if (2..10).include?(points)
+    if card.value == 'A' && @hand.size != 1
+      if (2..10).cover?(points)
         @points += 11
-      elsif (11..21).include?(points)
+      elsif (11..21).cover?(points)
         @points += 1
       end
     else
