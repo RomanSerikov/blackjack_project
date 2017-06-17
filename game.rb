@@ -31,10 +31,7 @@ class Game
     else puts 'Wrong command'
     end
 
-    if @finish_round || check_three_cards!
-      choose_winner
-      ask_for_more
-    end
+    choose_winner if @finish_round || check_three_cards!
   end
 
   def new_round!
@@ -71,21 +68,18 @@ class Game
   def choose_winner
     show_both_hands
 
-    if @user.points > 21 && @dealer.points > 21
+    if (@user.points > 21 && @dealer.points > 21) || @user.points == @dealer.points
       user_draw
     elsif @user.points > 21
       user_lost
-    elsif @dealer.points > 21
+    elsif @dealer.points > 21 || @user.points > @dealer.points
       user_win
-    elsif @user.points > @dealer.points
-      user_win
-    elsif @user.points == @dealer.points
-      user_draw
     else
       user_lost
     end
 
     @bank = 0
+    ask_for_more
   end
 
   def user_win
