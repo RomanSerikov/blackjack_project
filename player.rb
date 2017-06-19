@@ -5,18 +5,18 @@ class Player
   def initialize
     @name   = ''
     @bank   = 100
-    @hand   = []
+    @hand   = Hand.new
     @points = 0
   end
 
   def refresh!
-    @hand   = []
+    @hand   = Hand.new
     @points = 0
   end
 
   def draw_card(deck)
     card = deck.take_card
-    @hand << card
+    @hand.add(card)
     add_points(card)
   end
 
@@ -30,9 +30,7 @@ class Player
   end
 
   def show_cards
-    @hand.each do |card|
-      puts "card: #{card.value}#{card.suit}"
-    end
+    @hand.show
     puts "points: #{@points}"
   end
 
